@@ -22,7 +22,15 @@ def player(board):
     """
     Returns player who has the next turn on a board.
     """
-    raise NotImplementedError
+    x_count = sum(array.count(X) for array in board)
+    o_count = sum(array.count(O) for array in board)
+    
+    if x_count == 0 and o_count == 0:
+        return X
+    elif x_count > o_count:
+        return O
+    else: 
+        return X
 
 
 def actions(board):
