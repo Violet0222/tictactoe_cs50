@@ -37,7 +37,13 @@ def actions(board):
     """
     Returns set of all possible actions (i, j) available on the board.
     """
-    raise NotImplementedError
+    possible_actions = set()
+    for i in range(3):
+        for j in range(3):
+            if board[i][j] == EMPTY:
+                possible_actions.add((i,j))
+    return possible_actions
+    
 
 
 def result(board, action):
@@ -58,7 +64,11 @@ def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    raise NotImplementedError
+    empty_count = sum(array.count(EMPTY) for array in board)
+    if empty_count == 6:
+        return False
+    else:
+        True
 
 
 def utility(board):
