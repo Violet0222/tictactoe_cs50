@@ -42,10 +42,9 @@ def actions(board):
     for i in range(3):
         for j in range(3):
             if board[i][j] == EMPTY:
-                possible_actions.add((i,j))
+                possible_actions.add((i, j))
     return possible_actions
     
-
 
 def result(board, action):
     """
@@ -53,33 +52,30 @@ def result(board, action):
     """
     
     if action[0] not in range(3) or action[1] not in range(3):
-            raise IndexError('not a valid action')
+        raise IndexError('not a valid action')
     if board[action[0]][action[1]] != EMPTY:
-            raise IndexError("cell already taken")
+        raise IndexError("cell already taken")
     
-     
     board_copy = copy.deepcopy(board)
-    board_copy[action[0]][action[1]]=player(board)
+    board_copy[action[0]][action[1]] = player(board)
     return board_copy
     
     
-
-
 def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
     for row in board:
-        if row[0]==row[1]==row[2] and row[0]!= EMPTY:
+        if row[0] == row[1] == row[2] and row[0] != EMPTY:
             return row[0]
     for column in range(3):
-        if board[0][column]== board[1][column]== board[2][column] and board[0][column]!= EMPTY:
+        if board[0][column] == board[1][column] == board[2][column] and board[0][column] != EMPTY:
             return board[0][column]
     
-    if board[0][0]==board[1][1]==board[2][2] and board[0][0] != EMPTY:
+    if board[0][0] == board[1][1] == board[2][2] and board[0][0] != EMPTY:
         return board[0][0]
     
-    if board[0][2]==board[1][1]==board[2][0] and board[0][2] != EMPTY:
+    if board[0][2] == board[1][1] == board[2][0] and board[0][2] != EMPTY:
         return board[0][2]
     
     return None
@@ -101,15 +97,14 @@ def utility(board):
     """
     Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
     """
-    if terminal(board)== True:
-        if winner(board)== X:
+    if terminal(board) == True:
+        if winner(board) == X:
             return 1
-        elif winner(board)== O:
+        elif winner(board) == O:
             return -1
         else:
             return 0
     
-
 
 def minimax(board):
     """
@@ -121,20 +116,20 @@ def minimax(board):
     def max_value(board):
         if terminal(board) == True:
              return utility(board)
-        max_possible_value=-math.inf
+        max_possible_value = -math.inf
         for action in actions(board):
-            max_possible_value=max(max_possible_value, min_value(result(board,action)))
+            max_possible_value = max(max_possible_value, min_value(result(board, action)))
         return max_possible_value
     
     def min_value(board):
         if terminal(board) == True:
-             return utility(board)
+            return utility(board)
         minimal_possible_value = math.inf
         for action in actions(board):
-            minimal_possible_value=min(minimal_possible_value, max_value(result(board,action)))
+            minimal_possible_value = min(minimal_possible_value, max_value(result(board, action)))
         return minimal_possible_value
 
-    
+
     current_player = player(board)
     
     if current_player == X:
