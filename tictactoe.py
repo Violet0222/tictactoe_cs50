@@ -54,11 +54,11 @@ def result(board, action):
     board_copy = copy.deepcopy(board)
     try:
         if board_copy[action[0]][action[1]] != EMPTY:
-            raise NameError
+            raise IndexError
         else:  
             board_copy[action[0]][action[1]]=player(board)
             return board_copy
-    except NameError:
+    except IndexError:
         print('not a valid action')
     
 
