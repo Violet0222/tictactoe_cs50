@@ -51,12 +51,13 @@ def result(board, action):
     """
     Returns the board that results from making move (i, j) on the board.
     """
+    board_copy = copy.deepcopy(board)
     try:
-        if board[action[0]][action[1]] != EMPTY:
+        if board_copy[action[0]][action[1]] != EMPTY:
             raise NameError
-        board_copy = copy.deepcopy(board)
-        board_copy[action[0]][action[1]]=player(board)
-        return board_copy
+        else:  
+            board_copy[action[0]][action[1]]=player(board)
+            return board_copy
     except NameError:
         print('not a valid action')
     
