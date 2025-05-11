@@ -51,17 +51,15 @@ def result(board, action):
     """
     Returns the board that results from making move (i, j) on the board.
     """
+    if board[action[0]][action[1]] != EMPTY:
+            raise ValueError("cell already taken")
+    if action[0]<0 or action[0]>2 or action[1]<0 or action[1]<2:
+            raise IndexError('not a valid action')
+     
     board_copy = copy.deepcopy(board)
-    try:
-        if board_copy[action[0]][action[1]] != EMPTY:
-            raise IndexError
-        elif action[0]<0 or action[0]>2 or action[1]<0 or action[1]<2:
-            raise IndexError
-        else:  
-            board_copy[action[0]][action[1]]=player(board)
-            return board_copy
-    except IndexError:
-        print('not a valid action')
+    board_copy[action[0]][action[1]]=player(board)
+    return board_copy
+    
     
 
 
