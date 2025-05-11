@@ -84,7 +84,7 @@ def terminal(board):
     Returns True if game is over, False otherwise.
     """
     for row in board:
-        if EMPTY in row:
+        if EMPTY in row and winner(board) == None:
             return False
     if winner(board) != None:
         return True  
