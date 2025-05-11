@@ -154,6 +154,3 @@ def minimax(board):
                 best_score = opponent_best_score
                 best_action = action
         return best_action 
-        
-    
-    
