@@ -115,7 +115,7 @@ def minimax(board):
     
     def max_value(board):
         if terminal(board) == True:
-             return utility(board)
+            return utility(board)
         max_possible_value = -math.inf
         for action in actions(board):
             max_possible_value = max(max_possible_value, min_value(result(board, action)))
@@ -128,7 +128,6 @@ def minimax(board):
         for action in actions(board):
             minimal_possible_value = min(minimal_possible_value, max_value(result(board, action)))
         return minimal_possible_value
-
 
     current_player = player(board)
     
