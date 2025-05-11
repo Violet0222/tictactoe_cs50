@@ -84,11 +84,12 @@ def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    empty_count = sum(array.count(EMPTY) for array in board)
-    if empty_count == 6:
-        return False
-    else:
-        True
+    for row in board:
+        if EMPTY in row:
+            return False
+    if winner(board) != None:
+        return True  
+    return True
 
 
 def utility(board):
