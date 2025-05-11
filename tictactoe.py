@@ -51,11 +51,10 @@ def result(board, action):
     """
     Returns the board that results from making move (i, j) on the board.
     """
-    i,j = action
-    if board[i][j] != EMPTY:
+    if board[action[0]][action[1]] != EMPTY:
         raise NameError('not a valid action')
     board_copy = copy.deepcopy(board)
-    board_copy[i][j]=player(board)
+    board_copy[action[0]][action[1]]=player(board)
     return board_copy
     
 
@@ -110,4 +109,51 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
-    raise NotImplementedError
+    if terminal(board) == True:
+        return None
+    
+    def max_value(board):
+        if terminal(board) == True:
+             return utility(board)
+        max_possible_value=-math.inf
+        for action in actions(board):
+            max_possible_value=max(max_possible_value, min_value(result(board,action)))
+        return max_possible_value
+    
+    def min_value(board):
+        if terminal(board) == True:
+             return utility(board)
+        minimal_possible_value = math.inf
+        for action in actions(board):
+            minimal_possible_value=min(minimal_possible_value, max_value(result(board,action)))
+        return minimal_possible_value
+
+    
+    current_player = player(board)
+    
+    if current_player == X:
+        best_score = -math.inf
+        best_action = None
+        
+        for action in actions(board):
+            copy_board = result(board, action)
+            opponent_best_score = min_value(copy_board)
+            if opponent_best_score > best_score:
+                best_score = opponent_best_score
+                best_action = action
+        return best_action 
+    
+    else:
+        best_score = math.inf
+        best_action = None
+        
+        for action in actions(board):
+            copy_board = result(board, action)
+            opponent_best_score = max_value(copy_board)
+            if opponent_best_score < best_score:
+                best_score = opponent_best_score
+                best_action = action
+        return best_action 
+        
+    
+    
