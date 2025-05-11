@@ -55,6 +55,8 @@ def result(board, action):
     try:
         if board_copy[action[0]][action[1]] != EMPTY:
             raise IndexError
+        elif action[0]<0 or action[0]>2 or action[1]<0 or action[1]<2:
+            raise IndexError
         else:  
             board_copy[action[0]][action[1]]=player(board)
             return board_copy
